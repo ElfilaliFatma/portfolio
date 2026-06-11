@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-heading: var(--font-space-grotesk);
+  --font-body: var(--font-manrope);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+}
+
+:root {
+  --background: #f8fbff;
+  --foreground: #0f172a;
+  --card: rgba(255, 255, 255, 0.88);
+  --card-foreground: #0f172a;
+  --muted: rgba(226, 232, 240, 0.78);
+  --muted-foreground: #475569;
+  --border: rgba(15, 23, 42, 0.08);
+  --ring: rgba(14, 165, 233, 0.32);
+  --primary: #0f172a;
+  --primary-foreground: #f8fafc;
+  --secondary: #e2e8f0;
+  --secondary-foreground: #0f172a;
+  --accent: #0ea5e9;
+  --accent-foreground: #f8fafc;
+}
+
+.dark {
+  --background: #030712;
+  --foreground: #e2e8f0;
+  --card: rgba(15, 23, 42, 0.72);
+  --card-foreground: #e2e8f0;
+  --muted: rgba(15, 23, 42, 0.92);
+  --muted-foreground: #94a3b8;
+  --border: rgba(148, 163, 184, 0.14);
+  --ring: rgba(56, 189, 248, 0.28);
+  --primary: #f8fafc;
+  --primary-foreground: #020617;
+  --secondary: rgba(15, 23, 42, 0.92);
+  --secondary-foreground: #e2e8f0;
+  --accent: #38bdf8;
+  --accent-foreground: #020617;
+}
+
+* {
+  @apply border-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 7rem;
+}
+
+body {
+  @apply bg-background text-foreground font-body antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 28%),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.07), transparent 30%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 80%);
+  z-index: -1;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.3);
+}
+
+.glass-card {
+  @apply border border-border/80 bg-card/90 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:shadow-[0_24px_80px_-32px_rgba(15,23,42,0.45)];
+}
+
+.section-padding {
+  @apply py-20 sm:py-24;
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
