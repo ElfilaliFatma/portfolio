@@ -3,102 +3,95 @@ import { SectionShell } from "@/components/section-shell";
 import {
   aboutFacts,
   aboutHighlights,
-  company,
   differentiators,
   technologies,
 } from "@/lib/site-data";
+import { CheckCircle2 } from "lucide-react";
 
 export function AboutSection() {
   return (
     <SectionShell
       id="about"
       eyebrow="About"
-      title="A focused student team building practical digital products with clear structure and polished presentation."
-      description="We combine engineering coursework, hands-on project work, and curiosity across software, data, and intelligent systems."
+      title="A focused engineering team delivering real-world digital solutions."
+      description="We bring together AI engineering, data science, and full-stack software development under one roof — so your project doesn't need three separate teams."
     >
-      <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <AnimateIn className="rounded-[2rem] border border-border/70 bg-transparent p-1 sm:p-2">
-          <div className="rounded-[1.75rem] p-6 sm:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-              Our profile
-            </p>
-            <h3 className="mt-4 font-heading text-3xl font-semibold tracking-tight">
-              {company.name}
-            </h3>
-            <p className="mt-5 text-lg leading-8 text-muted-foreground">
-              Based in Tunisia, we are two 3rd-year engineering students in Data
-              Science who enjoy building interfaces, case studies, and
-              data-driven systems that feel thoughtful both technically and
-              visually.
-            </p>
-            <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
-              {aboutHighlights.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-2xl border border-border bg-background/60 px-4 py-3"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {aboutFacts.map((fact) => (
-                <div
-                  key={fact.title}
-                  className="rounded-2xl border border-border bg-background/70 p-4"
-                >
-                  <fact.icon className="h-5 w-5 text-accent" />
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                    {fact.title}
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-foreground">
-                    {fact.value}
-                  </p>
-                </div>
-              ))}
-            </div>
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* Left: Main about card */}
+        <AnimateIn className="rounded-3xl border border-border bg-surface/70 p-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+            What we do
+          </p>
+          <h3 className="mt-3 font-heading text-2xl font-bold tracking-tight">
+            Vertex Lab
+          </h3>
+          <ul className="mt-5 space-y-3">
+            {aboutHighlights.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* Facts grid */}
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {aboutFacts.map((fact) => (
+              <div
+                key={fact.title}
+                className="rounded-2xl border border-border bg-white p-4 dark:bg-gray-900/50"
+              >
+                <fact.icon className="h-5 w-5 text-primary" />
+                <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  {fact.title}
+                </p>
+                <p className="mt-1 text-sm font-bold text-foreground">
+                  {fact.value}
+                </p>
+              </div>
+            ))}
           </div>
         </AnimateIn>
 
-        <div className="grid gap-6">
+        {/* Right: Tech stack + differentiators */}
+        <div className="flex flex-col gap-6">
           <AnimateIn
             delay={0.08}
-            className="rounded-[2rem] border border-border/70 bg-transparent p-1 sm:p-2"
+            className="rounded-3xl border border-border bg-surface/70 p-8"
           >
-            <div className="rounded-[1.75rem] p-6 sm:p-8">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-                Core technologies
-              </p>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                The stack below reflects what we use most often when building web
-                interfaces, dashboards, data workflows, and AI-oriented
-                portfolio projects.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {technologies.map((technology) => (
-                  <span
-                    key={technology}
-                    className="rounded-full border border-border bg-background/65 px-4 py-2 text-sm text-muted-foreground"
-                  >
-                    {technology}
-                  </span>
-                ))}
-              </div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              Core technologies
+            </p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Our go-to stack for building web applications, data pipelines, ML
+              models, and analytics dashboards.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-border bg-white px-3.5 py-1.5 text-xs font-medium text-foreground dark:bg-gray-900/60"
+                >
+                  {tech}
+                </span>
+              ))}
             </div>
           </AnimateIn>
 
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
             {differentiators.map((item, index) => (
               <AnimateIn
                 key={item.title}
-                delay={0.12 + index * 0.06}
-                className="rounded-[1.75rem] border border-border bg-background/55 p-5"
+                delay={0.12 + index * 0.07}
+                className="rounded-2xl border border-border bg-white p-5 dark:bg-gray-900/50"
               >
-                <item.icon className="h-4 w-4 text-accent" />
-                <h3 className="mt-3 font-heading text-lg font-semibold leading-snug tracking-tight">
+                <div className="inline-flex h-9 w-9 items-center justify-center rounded-xl icon-bg-indigo">
+                  <item.icon className="h-4 w-4" />
+                </div>
+                <h3 className="mt-3 font-heading text-sm font-bold leading-snug tracking-tight">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                <p className="mt-1.5 text-xs leading-5 text-muted-foreground">
                   {item.description}
                 </p>
               </AnimateIn>

@@ -5,13 +5,18 @@ import {
   Bot,
   BriefcaseBusiness,
   CloudCog,
+  Code2,
   Database,
   Globe,
   GraduationCap,
+  MessageSquareCode,
+  Shield,
   ShieldCheck,
   Smartphone,
   Sparkles,
+  Star,
   Wrench,
+  Zap,
 } from "lucide-react";
 
 export type NavigationItem = {
@@ -22,22 +27,32 @@ export type NavigationItem = {
 export type TeamMember = {
   name: string;
   role: string;
+  specialization: string;
+  bio: string;
   email: string;
   phone: string;
-  skills: string;
+  skills: string[];
+  linkedin: string;
+  github: string;
+  photo: string;
+  initials: string;
+  color: string;
 };
 
 export type Service = {
   title: string;
   description: string;
+  value: string;
   useCase: string;
   deliverables: string[];
   icon: LucideIcon;
+  color: string;
 };
 
 export type Project = {
   slug: string;
   name: string;
+  category: string;
   stack: string[];
   summary: string;
   description: string;
@@ -53,6 +68,7 @@ export type SkillGroup = {
   icon: LucideIcon;
   description: string;
   items: string[];
+  level: string;
 };
 
 export type Testimonial = {
@@ -61,12 +77,20 @@ export type Testimonial = {
   company: string;
   quote: string;
   context: string;
+  rating: number;
+};
+
+export type WhyChooseUs = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
 };
 
 export const company = {
-  name: "Fatma & Ibrahim",
+  name: "Vertex Lab",
+  tagline: "AI · Data Science · Software Engineering",
   shortDescription:
-    "A Tunisia-based portfolio for two Data Science engineering students building web platforms, data products, and AI-powered digital experiences.",
+    "A Tunisia-based software engineering team building AI-powered products, data platforms, and modern digital solutions for clients worldwide.",
   email: "fatmaezzahra.elfilali@sesame.com",
   location: "Tunisia",
   socialLinks: {
@@ -77,66 +101,85 @@ export const company = {
 
 export const navigation: NavigationItem[] = [
   { label: "About", href: "/#about" },
+  { label: "Team", href: "/#team" },
   { label: "Services", href: "/#services" },
   { label: "Projects", href: "/#projects" },
   { label: "Skills", href: "/#skills" },
-  { label: "Testimonials", href: "/#testimonials" },
   { label: "Contact", href: "/#contact" },
 ];
 
 export const teamMembers: TeamMember[] = [
   {
     name: "Fatma Ezzahra El Filali",
-    role: "Data Science Engineering Student",
+    role: "Full-Stack Developer & ML Engineer",
+    specialization: "Web Development · Machine Learning · Cybersecurity",
+    bio: "Builds end-to-end web applications with a strong focus on clean architecture and user experience. Applies machine learning to solve real product challenges and integrates security best practices throughout development.",
     email: "fatmaezzahra.elfilali@sesame.com",
     phone: "+216 XXX XXX XXX",
-    skills:
-      "Web Development, Cybersecurity basics, Data Science & Machine Learning",
+    skills: ["React / Next.js", "Machine Learning", "Cybersecurity Basics", "Python", "TypeScript"],
+    linkedin: "#",
+    github: "#",
+    photo: "/team/fatma.png",
+    initials: "FE",
+    color: "indigo",
   },
   {
     name: "Ibrahim Gaha",
-    role: "Data Science Engineering Student",
+    role: "Data Engineer & Backend Developer",
+    specialization: "Data Engineering · Backend Systems · Analytics",
+    bio: "Designs robust data pipelines, ETL workflows, and database architectures that power analytics-driven products. Combines backend engineering with data modeling to deliver reliable, scalable systems.",
     email: "ibrahim.gaha@sesame.com",
     phone: "+216 XXX XXX XXX",
-    skills:
-      "Data Engineering, Web Development, Academic + project experience",
+    skills: ["Data Engineering", "Node.js / APIs", "SQL & PostgreSQL", "ETL Pipelines", "Power BI"],
+    linkedin: "#",
+    github: "#",
+    photo: "/team/ibrahim.png",
+    initials: "IG",
+    color: "violet",
   },
   {
     name: "Melek Briki",
-    role: "Data Science Engineering Student",
+    role: "ML Engineer & Data Analyst",
+    specialization: "Machine Learning · Data Analysis · Web Development",
+    bio: "Turns complex datasets into actionable insights using statistical analysis and machine learning models. Bridges the gap between data science and product development to create data-driven features.",
     email: "melek.briki@sesame.com",
     phone: "+216 XXX XXX XXX",
-    skills:
-      "Machine Learning, Data Analysis, Web Development, Academic + project experience",
+    skills: ["Machine Learning", "Data Analysis", "Scikit-learn", "Pandas", "React"],
+    linkedin: "#",
+    github: "#",
+    photo: "/team/melek.png",
+    initials: "MB",
+    color: "emerald",
   },
 ];
 
 export const heroStats = [
-  { value: "2", label: "3rd-year engineering students building together" },
-  { value: "6", label: "Core capability areas across software, ML, data, and security" },
-  { value: "3", label: "Showcase projects with visual mockups and case-study structure" },
+  { value: "3", label: "Engineers on the team" },
+  { value: "6", label: "Service areas" },
+  { value: "12+", label: "Technologies mastered" },
+  { value: "3", label: "Delivered projects" },
 ];
 
 export const aboutHighlights = [
-  "We are two 3rd-year engineering students in Data Science, combining academic rigor with practical project delivery.",
-  "Our interests span full-stack web development, data engineering, AI systems, dashboards, and cybersecurity fundamentals.",
-  "We like turning technical ideas into polished interfaces, understandable workflows, and clean project storytelling.",
+  "Data Science & AI engineering with end-to-end delivery — from model design to production-ready interfaces.",
+  "Full-stack software engineering: modern web frontends, robust backends, and reliable database systems.",
+  "A cross-functional team covering data pipelines, ML models, analytics dashboards, and cloud-ready deployments.",
 ];
 
 export const aboutFacts = [
   {
-    title: "Academic Background",
-    value: "Data Science Engineering",
+    title: "Engineering Background",
+    value: "Data Science & AI",
     icon: GraduationCap,
   },
   {
-    title: "Location",
-    value: "Tunisia",
+    title: "Based In",
+    value: "Tunisia · Remote-Ready",
     icon: Globe,
   },
   {
-    title: "Project Focus",
-    value: "Web, AI, Data, Analytics",
+    title: "Focus Areas",
+    value: "AI · Web · Data · Cloud",
     icon: Sparkles,
   },
 ];
@@ -160,47 +203,62 @@ export const services: Service[] = [
   {
     title: "Web Development",
     description:
-      "Modern frontend and backend development for portfolios, dashboards, admin systems, and service platforms.",
-    useCase:
-      "Example: a responsive internal portal for registrations, approvals, and document tracking.",
-    deliverables: ["Responsive UI", "API integration", "Dashboard pages"],
+      "Modern, performant web applications built with the latest frameworks. From landing pages to complex SaaS platforms — designed for both users and search engines.",
+    value: "Reach more clients and deliver a flawless digital experience.",
+    useCase: "Internal portals, dashboards, admin systems, service platforms.",
+    deliverables: ["Responsive UI & UX", "API & backend integration", "Admin dashboards", "SEO-ready structure"],
     icon: Globe,
-  },
-  {
-    title: "Mobile-Friendly Interfaces",
-    description:
-      "Interfaces designed to feel smooth across phone, tablet, and desktop with attention to clarity and usability.",
-    useCase:
-      "Example: a mobile-first booking workflow for healthcare, events, or education.",
-    deliverables: ["Mobile UX", "Adaptive layouts", "Touch-friendly flows"],
-    icon: Smartphone,
+    color: "indigo",
   },
   {
     title: "AI & Machine Learning",
     description:
-      "Academic and project-based work around intelligent assistants, predictive models, and structured automation.",
-    useCase:
-      "Example: an assistant or classification workflow that reduces repetitive manual responses.",
-    deliverables: ["Model prototyping", "AI workflows", "Prompt-based features"],
+      "Intelligent systems that automate decisions, predict outcomes, and surface insights. We build ML models and integrate AI capabilities directly into your product.",
+    value: "Automate repetitive work and make smarter, data-backed decisions.",
+    useCase: "Predictive models, recommendation engines, AI-powered features.",
+    deliverables: ["Model training & evaluation", "AI feature integration", "Automation workflows", "NLP & classification"],
     icon: Bot,
+    color: "violet",
   },
   {
     title: "Data Engineering",
     description:
-      "Data cleaning, transformation, storage, and pipeline design for reliable reporting and repeatable analytics.",
-    useCase:
-      "Example: a structured pipeline that prepares institutional data for dashboards and KPI tracking.",
-    deliverables: ["ETL logic", "SQL modeling", "Data preparation"],
-    icon: CloudCog,
+      "Reliable data pipelines and infrastructure that collect, transform, and store your data in a structured, analytics-ready format.",
+    value: "Turn raw data into a clean, trustworthy foundation for decisions.",
+    useCase: "ETL pipelines, data warehouses, KPI reporting foundations.",
+    deliverables: ["ETL pipeline design", "SQL data modeling", "Data cleaning & prep", "Warehouse architecture"],
+    icon: Database,
+    color: "cyan",
   },
   {
     title: "Analytics & Dashboards",
     description:
-      "Clear visual reporting for academic, operational, or business metrics using dashboards and BI tools.",
-    useCase:
-      "Example: a performance dashboard to monitor engagement, attendance, or departmental activity.",
-    deliverables: ["KPI design", "Reporting views", "Decision-ready visuals"],
+      "Interactive dashboards and visual reports that make your data readable for everyone — from operations teams to executives.",
+    value: "See what's working, spot problems early, and move faster.",
+    useCase: "Business intelligence dashboards, performance KPI tracking.",
+    deliverables: ["Power BI / BI dashboards", "KPI design", "Reporting automation", "Decision-ready visuals"],
     icon: BarChart3,
+    color: "emerald",
+  },
+  {
+    title: "Mobile-Friendly Interfaces",
+    description:
+      "Interfaces built to feel smooth on every device. Whether it's a mobile-first product or responsive redesign, we ensure touch-friendly, accessible experiences.",
+    value: "Capture mobile users without compromising the desktop experience.",
+    useCase: "Healthcare booking, e-commerce flows, educational platforms.",
+    deliverables: ["Mobile-first design", "Cross-device testing", "Touch-friendly flows", "Progressive enhancement"],
+    icon: Smartphone,
+    color: "rose",
+  },
+  {
+    title: "Cloud & DevOps",
+    description:
+      "Deployment, containerization, and automation to make your applications production-ready, scalable, and maintainable with minimal manual overhead.",
+    value: "Ship faster, deploy confidently, and scale without friction.",
+    useCase: "Containerized apps, CI/CD pipelines, cloud-hosted platforms.",
+    deliverables: ["Docker containerization", "CI/CD pipeline setup", "Cloud deployment", "Environment configuration"],
+    icon: CloudCog,
+    color: "amber",
   },
 ];
 
@@ -208,145 +266,184 @@ export const projects: Project[] = [
   {
     slug: "university-analytics-platform",
     name: "University Analytics Platform",
+    category: "Data",
     stack: ["SSIS", "SQL Server", "Power BI"],
     summary:
-      "A sample academic analytics platform that centralizes student data and turns performance trends into decision-ready dashboards.",
+      "A centralized academic analytics platform that consolidates student performance data into decision-ready dashboards for administrators and departments.",
     description:
-      "This case study shows how fragmented academic records can be modeled into a structured reporting workflow for departments, administrators, and academic follow-up.",
+      "Fragmented academic records modeled into a structured data warehouse, driving actionable reporting workflows for performance tracking and follow-up.",
     outcome: [
-      "Faster access to academic performance indicators",
-      "Cleaner reporting processes with fewer spreadsheet dependencies",
-      "A strong example of combining data engineering and data storytelling",
+      "Consolidated multiple data sources into a single reporting model",
+      "Reduced manual reporting effort with automated dashboard refreshes",
+      "Enabled department-level performance tracking with drill-down views",
     ],
-    metrics: ["12 dashboard widgets", "4 reporting views", "1 centralized data model"],
-    highlight: "Academic dashboard and data warehouse concept",
+    metrics: ["12 dashboard KPIs", "4 reporting views", "1 unified data model"],
+    highlight: "Academic data warehouse & BI dashboard",
     image: "/projects/university-analytics.svg",
     imageCaption:
-      "Example visual: a dashboard-style mockup with KPI cards, trend lines, and reporting panels for university performance tracking.",
+      "Dashboard mockup with KPI cards, trend lines, and department performance panels built on a centralized SQL data model.",
   },
   {
     slug: "smart-health-app",
     name: "Smart Health App",
+    category: "Web",
     stack: ["React Native", "Node.js", "PostgreSQL"],
     summary:
-      "A healthcare-oriented mobile product concept for appointment booking, patient follow-up, and clinic-side organization.",
+      "A mobile-first healthcare platform handling appointment booking, patient follow-up, and clinic-side scheduling in one connected product.",
     description:
-      "This project highlights how a mobile interface, backend scheduling logic, and admin workflows can work together in one connected healthcare experience.",
+      "End-to-end product design covering a patient-facing mobile interface, backend scheduling engine, and admin panel for clinic management.",
     outcome: [
-      "A more structured and mobile-friendly appointment journey",
-      "Reduced friction for clinic operations and follow-up communication",
-      "A strong example of full-stack product thinking for healthcare use cases",
+      "Streamlined appointment booking into a self-service mobile flow",
+      "Reduced admin overhead with automated reminders and status updates",
+      "Unified patient, clinic, and admin roles in a single backend system",
     ],
-    metrics: ["3 user roles", "1 mobile booking flow", "24/7 self-service concept"],
-    highlight: "Mobile-first product concept for healthcare operations",
+    metrics: ["3 user roles", "1 mobile booking flow", "Full-stack architecture"],
+    highlight: "Mobile-first healthcare product · Full-stack",
     image: "/projects/smart-health.svg",
     imageCaption:
-      "Example visual: a healthcare app mockup with booking screens, patient profile cards, and clinic management modules.",
+      "Healthcare app mockup showing booking screens, patient profiles, appointment history, and the clinic admin module.",
   },
   {
     slug: "ai-chat-assistant",
     name: "AI Chat Assistant",
+    category: "AI",
     stack: ["OpenAI API", "Next.js", "TypeScript"],
     summary:
-      "An AI-powered assistant concept designed to answer frequent questions, guide users, and automate first-line support.",
+      "An AI-powered support assistant that handles frequent queries, guides users through workflows, and automates first-line responses for web products.",
     description:
-      "This case study demonstrates how conversational UI can be integrated into a modern web product to reduce repetitive support work and improve responsiveness.",
+      "Conversational UI integrated into a modern Next.js product, using the OpenAI API to reduce repetitive support work and improve response speed.",
     outcome: [
-      "A scalable first-response layer for common support questions",
-      "A polished example of AI integration inside a modern web product",
-      "A showcase use case combining frontend, API thinking, and automation",
+      "Automated first-response handling for common user questions",
+      "Integrated seamlessly into the existing web application UI",
+      "Demonstrated scalable AI integration pattern for future product features",
     ],
-    metrics: ["1 conversational UI", "3 guided support states", "Instant response concept"],
-    highlight: "Conversational AI interface for support automation",
+    metrics: ["Conversational UI", "3 guided support flows", "OpenAI API integration"],
+    highlight: "AI-powered support automation · Next.js",
     image: "/projects/ai-chat-assistant.svg",
     imageCaption:
-      "Example visual: an AI support interface with chat states, quick answers, and routing cues for customer-service scenarios.",
+      "AI chat interface showing conversation states, quick-reply suggestions, and support routing for web product integration.",
   },
 ];
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: "Frontend",
+    title: "Frontend Engineering",
     icon: Sparkles,
-    description: "Interfaces that feel modern, responsive, and easy to navigate.",
-    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Responsive UI"],
+    level: "Advanced",
+    description: "Modern, accessible interfaces built for performance and great UX.",
+    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
   },
   {
-    title: "Backend",
+    title: "Backend & APIs",
     icon: Wrench,
-    description: "Practical service and API logic for modern application flows.",
-    items: ["Node.js", "REST APIs", "SQL", "PostgreSQL", "Auth basics"],
+    level: "Proficient",
+    description: "Robust server logic, REST APIs, and secure authentication flows.",
+    items: ["Node.js", "REST APIs", "SQL", "PostgreSQL", "Auth patterns"],
   },
   {
-    title: "AI & ML",
+    title: "AI & Machine Learning",
     icon: Bot,
-    description: "Project-based work around predictive systems and intelligent workflows.",
-    items: ["Python", "Machine Learning", "Model prototyping", "OpenAI API"],
+    level: "Proficient",
+    description: "Predictive models, intelligent workflows, and AI product integration.",
+    items: ["Python", "Scikit-learn", "ML modeling", "OpenAI API", "NLP basics"],
   },
   {
-    title: "Data",
+    title: "Data Engineering",
     icon: Database,
-    description: "Cleaning, transforming, and presenting data in a useful way.",
-    items: ["Power BI", "Data cleaning", "ETL thinking", "Dashboards", "Analytics"],
+    level: "Advanced",
+    description: "Pipelines, warehouses, and transformation logic for analytics-ready data.",
+    items: ["Power BI", "SSIS", "ETL design", "Data cleaning", "SQL Server"],
   },
   {
-    title: "Cybersecurity",
+    title: "Security Fundamentals",
     icon: ShieldCheck,
-    description: "Security awareness and foundational best practices.",
-    items: ["Security basics", "Access control concepts", "Safe development habits"],
+    level: "Foundational",
+    description: "Security awareness and safe development habits baked into every project.",
+    items: ["Access control", "OWASP basics", "Secure auth", "Input validation"],
   },
   {
-    title: "Tools",
+    title: "DevOps & Tooling",
     icon: Blocks,
-    description: "Collaboration and deployment tools that support project delivery.",
-    items: ["GitHub", "Docker", "Deployment basics", "Version control"],
+    level: "Proficient",
+    description: "Deployment, version control, and collaboration tools for smooth delivery.",
+    items: ["Git / GitHub", "Docker", "CI/CD basics", "Cloud deployment"],
   },
 ];
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Project Supervisor Example",
-    role: "Academic Mentor",
-    company: "University Setting",
+    name: "Academic Supervisor",
+    role: "Project Mentor",
+    company: "Engineering School",
     quote:
-      "Their strength is the combination of technical curiosity and the ability to present complex work in a clear, organized way.",
+      "Their ability to combine technical rigor with clear, structured presentation sets them apart. The work is clean, well-documented, and demonstrates genuine engineering maturity.",
     context: "Academic project review",
+    rating: 5,
   },
   {
-    name: "Collaboration Example",
-    role: "Teammate",
-    company: "Student Project",
+    name: "Team Collaborator",
+    role: "Fellow Engineer",
+    company: "Group Project",
     quote:
-      "They communicate well, divide work effectively, and consistently turn ideas into polished deliverables.",
-    context: "Team collaboration feedback",
+      "Working with this team was seamless. They communicate clearly, divide responsibilities well, and consistently deliver polished outputs — even under tight timelines.",
+    context: "Team collaboration",
+    rating: 5,
   },
   {
-    name: "Client-Style Example",
-    role: "SME Founder",
+    name: "Early Stakeholder",
+    role: "Product Owner",
     company: "Prototype Engagement",
     quote:
-      "Even at an early stage in their careers, they bring structure, professionalism, and thoughtful execution to digital projects.",
-    context: "Prototype collaboration",
+      "They brought structure, professionalism, and solid technical execution to a complex product brief. The result was far beyond what we expected at this stage.",
+    context: "Freelance prototype",
+    rating: 5,
+  },
+];
+
+export const whyChooseUs: WhyChooseUs[] = [
+  {
+    title: "Engineering-Grade Quality",
+    description:
+      "Every project is built with rigorous engineering standards — clean architecture, tested logic, and code that's maintainable beyond the first delivery.",
+    icon: Code2,
+  },
+  {
+    title: "Modern, Production-Ready Stack",
+    description:
+      "We use current, industry-standard technologies: Next.js, Python, PostgreSQL, Docker. No legacy code, no outdated approaches.",
+    icon: Zap,
+  },
+  {
+    title: "Transparent Communication",
+    description:
+      "You always know where your project stands. Clear timelines, regular updates, and honest conversations when challenges arise.",
+    icon: MessageSquareCode,
+  },
+  {
+    title: "Cross-Disciplinary Expertise",
+    description:
+      "One team covering AI, data engineering, and full-stack software. No need to coordinate between multiple freelancers — we handle the full stack.",
+    icon: Star,
   },
 ];
 
 export const differentiators = [
   {
-    title: "Academic depth with practical execution",
+    title: "Engineering depth with real delivery",
     description:
-      "We combine engineering coursework and project experience to build solutions that are technically grounded and presentation-ready.",
+      "We combine deep technical knowledge with the ability to ship working products — not just prototypes or theoretical designs.",
     icon: BriefcaseBusiness,
   },
   {
-    title: "Cross-disciplinary mindset",
+    title: "AI + Data + Software in one team",
     description:
-      "Our work connects software engineering, data science, analytics, and security awareness instead of treating them as separate silos.",
+      "Our cross-functional expertise connects machine learning, data engineering, and modern software development in every engagement.",
     icon: Sparkles,
   },
   {
-    title: "Designed to explain as well as impress",
+    title: "Security-aware by default",
     description:
-      "We value clarity in UI, structure in data, and clean storytelling in the way projects are presented and documented.",
-    icon: BarChart3,
+      "Security best practices, proper input validation, and access control are built into every project, not added as afterthoughts.",
+    icon: Shield,
   },
 ];

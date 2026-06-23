@@ -15,6 +15,7 @@ function isProject(value: unknown): value is Project {
   return (
     typeof project.slug === "string" &&
     typeof project.name === "string" &&
+    typeof project.category === "string" &&
     isStringArray(project.stack) &&
     typeof project.summary === "string" &&
     typeof project.description === "string" &&
@@ -70,6 +71,7 @@ export function sanitizeProject(
   return {
     slug,
     name,
+    category: typeof candidate.category === "string" ? candidate.category.trim() : (fallback?.category ?? "Web"),
     stack: Array.isArray(candidate.stack)
       ? candidate.stack.filter((item): item is string => typeof item === "string" && item.trim().length > 0)
       : [...(fallback?.stack ?? [])],
@@ -150,6 +152,7 @@ export function createEmptyProject(existingProjects: Project[] = []): Project {
   return {
     slug,
     name: "New Project",
+    category: "Web",
     stack: ["Next.js", "TypeScript"],
     summary: "Short summary of the project.",
     description: "Longer description of the project and the context behind it.",

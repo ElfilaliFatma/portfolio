@@ -4,7 +4,9 @@ import { HeroSection } from "@/components/hero-section";
 import { ProjectsSection } from "@/components/projects-section";
 import { ServicesSection } from "@/components/services-section";
 import { SkillsSection } from "@/components/skills-section";
+import { TeamSection } from "@/components/team-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
+import { WhyChooseUsSection } from "@/components/why-choose-us-section";
 import { getProjects } from "@/lib/project-store";
 
 export default async function HomePage() {
@@ -14,8 +16,10 @@ export default async function HomePage() {
     <>
       <HeroSection />
       <AboutSection />
+      <TeamSection />
       <ServicesSection />
       <ProjectsSection projects={projects} />
+      <WhyChooseUsSection />
       <SkillsSection />
       <TestimonialsSection />
       <ContactSection />

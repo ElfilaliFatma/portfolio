@@ -3,200 +3,167 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { SectionShell } from "@/components/section-shell";
 import type { Project } from "@/lib/site-data";
+import { cn } from "@/lib/utils";
 
 type ProjectsSectionProps = {
   projects: Project[];
 };
 
+const categories = ["All", "Web", "Data", "AI"];
+
+const categoryColorMap: Record<string, string> = {
+  Web: "icon-bg-indigo text-primary border-indigo-200",
+  Data: "icon-bg-emerald text-emerald-700 border-emerald-200",
+  AI: "icon-bg-violet text-violet-700 border-violet-200",
+};
+
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  useEffect(() => {
-    if (projects.length === 0 || isPaused) {
-      return;
-    }
+  const filtered =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
 
-    const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % projects.length);
-    }, 5000);
-
-    return () => window.clearInterval(interval);
-  }, [isPaused, projects]);
-
-  useEffect(() => {
-    if (activeIndex >= projects.length) {
-      setActiveIndex(0);
-    }
-  }, [activeIndex, projects.length]);
-
-  if (projects.length === 0) {
-    return null;
-  }
-
-  const activeProject = projects[activeIndex] ?? projects[0];
-
-  function goToNext() {
-    setActiveIndex((current) => (current + 1) % projects.length);
-  }
-
-  function goToPrevious() {
-    setActiveIndex((current) => (current - 1 + projects.length) % projects.length);
-  }
+  if (projects.length === 0) return null;
 
   return (
     <SectionShell
       id="projects"
       eyebrow="Projects"
-      title="Showcase projects presented as animated case-study cards with example visuals."
-      description="The slider below highlights each project with a mockup image, a concise case-study breakdown, and a card-based presentation style."
+      title="Built, shipped, and ready to show."
+      description="A selection of projects spanning AI integration, data platforms, and full-stack product development."
     >
-      <div className="overflow-hidden rounded-[2rem] border border-border/70 p-4 sm:p-6">
-        <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-              Featured slider
-            </p>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-muted-foreground">
-              Each slide uses one example project image and one descriptive card
-              so the portfolio feels more visual and easier to scan.
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={goToPrevious}
-              aria-label="Previous project"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/70 text-foreground transition hover:bg-background"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={goToNext}
-              aria-label="Next project"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/70 text-foreground transition hover:bg-background"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
+      {/* Category filter */}
+      <div className="mb-8 flex flex-wrap gap-2">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            onClick={() => setActiveCategory(cat)}
+            className={cn(
+              "rounded-full px-5 py-2 text-sm font-semibold transition-all duration-200",
+              activeCategory === cat
+                ? "bg-primary text-white shadow-md"
+                : "border border-border bg-white text-muted-foreground hover:border-primary/30 hover:text-primary dark:bg-gray-900/60",
+            )}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-        <div className="relative min-h-[620px] md:min-h-[560px]">
-          <AnimatePresence mode="wait">
+      {/* Projects grid */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeCategory}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+        >
+          {filtered.map((project, index) => (
             <motion.article
-              key={activeProject.slug}
-              initial={{ opacity: 0, y: 18 }}
+              key={project.slug}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -18 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]"
-              onHoverStart={() => setIsPaused(true)}
-              onHoverEnd={() => setIsPaused(false)}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="hover-card group flex flex-col rounded-3xl border border-border bg-white shadow-sm dark:bg-gray-900/60 overflow-hidden"
             >
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-border bg-background/60">
-                <div className="absolute left-4 top-4 z-10 rounded-full border border-white/20 bg-slate-950/65 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur">
-                  Example project image
+              {/* Project image */}
+              <div className="relative aspect-[16/9] overflow-hidden bg-surface">
+                <div className="absolute left-3 top-3 z-10">
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold",
+                      categoryColorMap[project.category] ??
+                        "bg-surface text-muted-foreground border-border",
+                    )}
+                  >
+                    {project.category}
+                  </span>
                 </div>
-                <div className="relative aspect-[16/12]">
-                  <Image
-                    src={activeProject.image}
-                    alt={activeProject.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                    priority
-                  />
-                </div>
-                <div className="border-t border-border bg-background/70 p-5">
-                  <p className="text-sm leading-7 text-muted-foreground">
-                    {activeProject.imageCaption}
-                  </p>
-                  <div className="mt-5 rounded-[1.5rem] border border-border bg-background/55 p-5">
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-                      Description
-                    </p>
-                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                      {activeProject.description}
-                    </p>
-                  </div>
-                </div>
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                />
               </div>
 
-              <div className="grid gap-5">
-                <div className="rounded-[1.75rem] border border-border bg-background/55 p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
-                    {activeProject.highlight}
-                  </p>
-                  <h3 className="mt-4 font-heading text-3xl font-semibold tracking-tight">
-                    {activeProject.name}
-                  </h3>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                    {activeProject.summary}
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {activeProject.stack.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
+              {/* Content */}
+              <div className="flex flex-1 flex-col p-6">
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                  {project.highlight}
+                </p>
+                <h3 className="mt-2 font-heading text-xl font-bold tracking-tight">
+                  {project.name}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {project.summary}
+                </p>
+
+                {/* Stack */}
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-border bg-surface px-2.5 py-1 text-xs font-medium text-muted-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
 
-                <div className="rounded-[1.75rem] border border-border bg-background/55 p-6">
-                  <div className="flex items-center justify-between gap-4">
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-                      Quick metrics
-                    </p>
-                    <Link
-                      href={`/projects/${activeProject.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-foreground transition hover:text-accent"
+                {/* Metrics */}
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {project.metrics.map((metric) => (
+                    <div
+                      key={metric}
+                      className="rounded-xl border border-border bg-surface/80 px-2 py-2 text-center"
                     >
-                      View details
-                      <ArrowUpRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                    {activeProject.metrics.map((metric) => (
-                      <div
-                        key={metric}
-                        className="rounded-2xl border border-border bg-background/70 px-4 py-4 text-sm font-medium text-muted-foreground"
-                      >
+                      <p className="text-xs font-medium leading-4 text-foreground">
                         {metric}
-                      </div>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* View link */}
+                <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+                  <ul className="space-y-1">
+                    {project.outcome.slice(0, 1).map((o) => (
+                      <li
+                        key={o}
+                        className="text-xs leading-5 text-muted-foreground"
+                      >
+                        ✓ {o}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="ml-4 flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground transition-all hover:border-primary/30 hover:bg-indigo-50 hover:text-primary dark:hover:bg-indigo-100/10"
+                  >
+                    View case study
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
               </div>
             </motion.article>
-          </AnimatePresence>
-        </div>
-
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          {projects.map((project, index) => (
-            <button
-              key={project.slug}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                index === activeIndex
-                  ? "bg-foreground text-background"
-                  : "border border-border bg-background/70 text-muted-foreground hover:bg-background"
-              }`}
-              aria-label={`Show ${project.name}`}
-            >
-              {project.name}
-            </button>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </SectionShell>
   );
 }

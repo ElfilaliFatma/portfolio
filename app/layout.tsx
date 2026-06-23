@@ -17,9 +17,9 @@ const bodyFont = Manrope({
   subsets: ["latin"],
 });
 
-const title = `${company.name} | Data Science and software engineering portfolio`;
+const title = `${company.name} | AI · Data Science · Software Engineering`;
 const description =
-  "Portfolio website for two Data Science engineering students in Tunisia with projects in web development, AI, analytics, and data engineering.";
+  "Vertex Lab is a team of Data Science & Software Engineers in Tunisia offering freelance services in AI, machine learning, web development, data engineering, and analytics — available worldwide.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio.example.com"),
@@ -29,12 +29,14 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
-    "Data Science portfolio Tunisia",
-    "engineering student portfolio",
-    "web development portfolio",
-    "AI student projects",
-    "data analytics dashboards",
-    "software engineering Tunisia",
+    "freelance AI engineers Tunisia",
+    "Data Science freelance team",
+    "web development agency Tunisia",
+    "machine learning consulting",
+    "data engineering freelance",
+    "software engineering team remote",
+    "Vertex Lab freelance",
+    "AI software engineers Tunisia",
   ],
   authors: [{ name: company.name }],
   creator: company.name,
@@ -73,7 +75,7 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ProfessionalService",
     name: company.name,
     description: company.shortDescription,
     url: "https://portfolio.example.com",
@@ -84,13 +86,15 @@ export default function RootLayout({
       addressCountry: "TN",
     },
     sameAs: [company.socialLinks.github, company.socialLinks.linkedin],
-    areaServed: ["Tunisia", "Europe", "Middle East", "Remote"],
+    areaServed: ["Tunisia", "Europe", "Middle East", "Worldwide", "Remote"],
     knowsAbout: [
-      "Web development",
       "Artificial intelligence",
-      "Data analytics",
+      "Machine learning",
+      "Web development",
       "Data engineering",
+      "Data analytics",
       "Software engineering",
+      "Cloud deployment",
     ],
   };
 
