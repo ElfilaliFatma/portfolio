@@ -4,4 +4,8 @@ npm-debug.log*
 .env
 .env.local
 .env.production
+.vercel
 dist
+tsconfig.tsbuildinfo
+
+.vercel

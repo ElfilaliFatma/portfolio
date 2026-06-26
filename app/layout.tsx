@@ -7,6 +7,13 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL.startsWith("http")
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : `https://${process.env.NEXT_PUBLIC_SITE_URL}`
+    : "https://portfolio.example.com";
+
 const headingFont = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
@@ -22,7 +29,7 @@ const description =
   "Vertex Lab is a team of Data Science & Software Engineers in Tunisia offering freelance services in AI, machine learning, web development, data engineering, and analytics — available worldwide.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio.example.com"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: title,
     template: `%s | ${company.name}`,
@@ -78,7 +85,7 @@ export default function RootLayout({
     "@type": "ProfessionalService",
     name: company.name,
     description: company.shortDescription,
-    url: "https://portfolio.example.com",
+    url: siteUrl,
     email: company.email,
     address: {
       "@type": "PostalAddress",

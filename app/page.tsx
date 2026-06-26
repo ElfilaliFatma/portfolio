@@ -1,5 +1,6 @@
 import { AboutSection } from "@/components/about-section";
 import { ContactSection } from "@/components/contact-section";
+import { CvSection } from "@/components/cv-section";
 import { HeroSection } from "@/components/hero-section";
 import { ProjectsSection } from "@/components/projects-section";
 import { ServicesSection } from "@/components/services-section";
@@ -17,6 +18,7 @@ export default async function HomePage() {
       <HeroSection />
       <AboutSection />
       <TeamSection />
+      <CvSection />
       <ServicesSection />
       <ProjectsSection projects={projects} />
       <WhyChooseUsSection />
